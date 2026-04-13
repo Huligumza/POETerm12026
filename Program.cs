@@ -32,6 +32,31 @@ namespace POE
             Console.WriteLine(sign);
             Console.ResetColor();
 
+            string userName = "";
+            while (true)
+            {
+                Console.WriteLine("\n: Please enter your UserName");
+                userName = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(userName))
+                {
+                    Console.WriteLine("Field for Name shouldn't be empty");
+                    continue;
+                }
+                if (userName.Length < 2)
+                {
+                    Console.WriteLine("Name cannot be less than 2 characters short");
+                    continue;
+                }
+                if (!Regex.IsMatch(userName, @"^[a-zA-Z]+$"))
+                {
+                    Console.WriteLine("Name should only contain letters and not numbers");
+                    continue;
+                }
+                break;
+            }
+
+
         }
     }
 }
