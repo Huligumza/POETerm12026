@@ -76,7 +76,51 @@ namespace POE
                 "SAFE BROWSING: Ensure the URL starts with 'HTTPS'. Avoid using public Wi-Fi for sensitive transactions like banking. Use a reputable VPN if you must connect to a public network, and keep your browser and OS patched with the latest security updates."
             };
 
+            bool chatActive = true;
+            while (chatActive)
+            {
+                Console.Write($"\n{userName.ToUpper()} > ");
+                string input = Console.ReadLine().ToLower();
 
+                if (input == "exit" || input == "quit")
+                {
+                    chatActive = false;
+                    continue;
+                }
+
+                bool foundMatch = false;
+                for (int i = 0; i < keywords.Length; i++)
+                {
+                    if (input.Contains(keywords[i]))
+                    {
+                        Console.WriteLine("--------------------------------------------------------------------------------");
+                        TypeEffect($"[AI]: {responses[i]}");
+                        Console.WriteLine("--------------------------------------------------------------------------------");
+                        foundMatch = true;
+                        break;
+                    }
+                }
+
+                if (!foundMatch)
+                {
+                    TypeEffect("[AI]: I didn't quite understand that, could you rephrase?");
+                }
+            }
+
+            Console.WriteLine("\nSession Terminated. Press any key to close.");
+            Console.ReadKey();
+        }
+
+
+        static void TypeEffect(string text)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(25);
+            }
+            Console.WriteLine();
         }
     }
+    
 }
